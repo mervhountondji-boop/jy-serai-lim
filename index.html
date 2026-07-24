@@ -3,30 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>J'y serai LIM</title>
+  <title>Générateur J'y serai</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <div class="container">
-    <h2>Générateur de visuel</h2>
+    <h2>Créer mon visuel</h2>
 
+    <!-- Le cadre d'affichage -->
     <div class="canvas-box">
-      <!-- Flyer en fond -->
+      <!-- Image de fond (votre flyer) -->
       <img src="flyer1.png" id="template" alt="Flyer LIM">
       
-      <!-- Photo utilisateur (avec une image vide par défaut pour éviter les bugs) -->
-      <img id="photoPreview" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Photo aperçu">
+      <!-- Photo de l'utilisateur qui se placera dans le cercle -->
+      <img id="photoPreview" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Aperçu photo">
     </div>
 
+    <!-- Les boutons d'action -->
     <div class="controls">
-      <!-- Input visible pour tester directement -->
       <input type="file" id="photo" accept="image/*">
       <br><br>
       <button id="downloadBtn">Télécharger mon visuel</button>
     </div>
   </div>
 
+  <!-- Lien vers le fichier JavaScript -->
   <script src="script.js"></script>
 </body>
 </html>
