@@ -41,15 +41,14 @@ body {
 /* 2. Photo utilisateur au-dessus du cercle */
 #photoPreview {
   position: absolute;
-  width: 196px;        /* Largeur exacte du cercle */
-  height: 196px;       /* Hauteur exacte du cercle */
-  top: 184px;          /* Position verticale */
-  left: 102px;         /* Position horizontale */
-  border-radius: 50%;  /* Rendu rond */
-  object-fit: cover;   /* Ne déforme pas le visage */
-  z-index: 2;          /* Force l'affichage au-dessus */
-  display: none;       /* Masqué au démarrage */
-  border: 2px solid #ffb703; /* Petit contour doré pour bien la repérer */
+  width: 196px;        
+  height: 196px;       
+  top: 212px;          /* ⬅️ AUGMENTEZ cette valeur pour descendre la photo */
+  left: 102px;         
+  border-radius: 50px;  
+  object-fit: cover;   
+  z-index: 2;          
+  display: none;       
 }
 
 .controls {
