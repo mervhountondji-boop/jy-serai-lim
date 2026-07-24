@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Générateur LIM</title>
+  <!-- Bibliothèque pour le recadrage / glisser-déplacer -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
@@ -11,23 +13,31 @@
   <div class="container">
     <h2>Créer mon visuel</h2>
 
-    <!-- Cadre du flyer en sandwich -->
+    <!-- Cadre du flyer -->
     <div class="canvas-box">
       <!-- Couche 1 : Fond -->
       <img src="./fond.png" id="bg" alt="Fond">
-      <!-- Couche 2 : Photo de l'utilisateur -->
-      <img id="photoPreview" alt="Aperçu photo">
+      
+      <!-- Couche 2 : Zone de la photo dynamique -->
+      <div id="photoContainer">
+        <img id="photoPreview" alt="Aperçu photo">
+      </div>
+
       <!-- Couche 3 : Cadre par-dessus -->
       <img src="./cadre2.png" id="overlay" alt="Cadre">
     </div>
 
     <!-- Boutons -->
     <div class="controls">
-      <input type="file" id="photo" accept="image/*"><br><br>
+      <input type="file" id="photo" accept="image/*"><br>
+      <small style="display:block; margin-top:5px; color:#aaa;">(Une fois la photo choisie, tu peux la glisser et zoomer dessus !)</small>
+      <br>
       <button type="button" id="downloadBtn">Télécharger mon visuel</button>
     </div>
   </div>
 
+  <!-- Script Cropper.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
   <script src="./script.js"></script>
 </body>
 </html>
