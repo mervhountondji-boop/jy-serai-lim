@@ -39,17 +39,21 @@ body {
   z-index: 1;
 }
 
-/* Couche 2 : Photo découpée en rond au centre */
-#photoPreview {
+/* Couche 2 : Zone du cercle interactif (Ajustable) */
+#photoContainer {
   position: absolute;
   width: 196px;
   height: 196px;
   top: 212px;
   left: 102px;
   border-radius: 50%;
-  object-fit: cover;
+  overflow: hidden;
   z-index: 2;
-  display: none;
+  display: none; /* Masqué au départ */
+}
+
+#photoPreview {
+  max-width: 100%;
 }
 
 /* Couche 3 : Cadre par-dessus */
@@ -61,11 +65,11 @@ body {
   height: 100%;
   object-fit: cover;
   z-index: 3;
-  pointer-events: none;
+  pointer-events: none; /* Laisse passer les clics vers la photo dessous */
 }
 
 .controls {
-  margin-top: 25px;
+  margin-top: 20px;
 }
 
 input[type="file"] {
@@ -85,10 +89,15 @@ input[type="file"] {
   font-weight: bold;
   border-radius: 6px;
   cursor: pointer;
-  margin-top: 15px;
 }
 
 #downloadBtn:hover {
   background-color: #fb8500;
   color: #ffffff;
+}
+
+/* Masquer les bordures par défaut de Cropper pour garder un beau cercle */
+.cropper-view-box,
+.cropper-face {
+  border-radius: 50%;
 }
