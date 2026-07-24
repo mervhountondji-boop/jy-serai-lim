@@ -1,48 +1,75 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background: #eee;
+  min-height: 100vh;
+  margin: 0;
+  background-color: #f4f4f9;
   font-family: Arial, sans-serif;
 }
 
 .container {
   text-align: center;
+  padding: 20px;
 }
 
-/* Le conteneur parent */
-.canvas {
+/* Zone d'affichage du flyer à l'écran (400px de large) */
+.canvas-box {
   position: relative;
   width: 400px;
   margin: 0 auto;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-/* Le template (le flyer bleu) */
+/* 1. Le flyer complet au fond */
 #template {
-  width: 400px;
+  width: 100%;
   display: block;
   position: relative;
-  z-index: 2; /* S'affiche au PREMIER PLAN */
-  pointer-events: none; /* Laisse passer les clics au besoin */
+  z-index: 1;
 }
 
-/* La photo importée par l'utilisateur */
+/* 2. La photo qui se place au-dessus du rond blanc */
 #photoPreview {
   position: absolute;
-  width: 195px;       /* Ajustement selon le cadre */
-  height: 195px;      /* Même largeur/hauteur */
-  border-radius: 50%; /* Rend la photo ronde */
-  object-fit: cover;  /* Évite de déformer le visage */
-  top: 185px;         /* Position verticale dans le cercle */
-  left: 102px;        /* Position horizontale dans le cercle */
-  z-index: 1;         /* S'affiche DERRIÈRE le flyer */
-  display: none;      /* Caché tant qu'aucune photo n'est choisie */
+  width: 196px;         /* Diamètre de la photo */
+  height: 196px;        /* Diamètre de la photo */
+  top: 184px;           /* Alignment vertical */
+  left: 102px;        /* Alignment horizontal */
+  border-radius: 50%;   /* Découpe ronde */
+  object-fit: cover;    /* Évite la déformation du visage */
+  z-index: 2;           /* Se place PAR-DESSUS le flyer */
+  display: none;        /* Masqué par défaut */
 }
 
-input, button {
-  margin-top: 15px;
-  padding: 10px 15px;
+.controls {
+  margin-top: 20px;
+}
+
+input[type="file"] {
+  display: block;
+  margin: 10px auto;
+}
+
+button {
+  background-color: #ffb703;
+  color: #000;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
   font-weight: bold;
+  border-radius: 5px;
   cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background-color: #fb8500;
+  color: #fff;
 }
