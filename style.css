@@ -1,46 +1,37 @@
 body{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    min-height:100vh;
-    background:#eee;
-    font-family:Arial;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+background:#eee;
+font-family:Arial;
 }
 
 .container{
-    text-align:center;
-    position:relative;
+position:relative;
+width:400px;
 }
 
 #template{
-    width:400px;
-    position:relative;
+width:400px;
+display:block;
 }
 
 
-/* le cercle photo */
-.photo-circle{
-    width:220px;
-    height:220px;
-    border-radius:50%;
-    overflow:hidden;
-    position:absolute;
-    top:125px;
-    left:50%;
-    transform:translateX(-50%);
-}
-
-
-/* la photo importée */
+/* cercle photo */
 #photoPreview{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    object-position:center;
+position:absolute;
+width:190px;
+height:190px;
+border-radius:50%;
+object-fit:cover;
+object-position:center;
+top:170px;
+left:105px;
+z-index:2;
 }
 
 
 input,button{
-    margin-top:20px;
-    padding:10px;
+margin-top:20px;
 }
