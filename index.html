@@ -11,16 +11,17 @@
   <div class="container">
     <h2>Créer mon visuel</h2>
 
-    <!-- Le cadre d'affichage -->
     <div class="canvas-box">
-      <!-- Image de fond (votre flyer) -->
-      <img src="flyer1.png" id="template" alt="Flyer LIM">
+      <!-- Couche 1 : Fond bleu -->
+      <img src="fond.png" id="bg" alt="Fond">
       
-      <!-- Photo de l'utilisateur qui se placera dans le cercle -->
-      <img id="photoPreview" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Aperçu photo">
+      <!-- Couche 2 : Photo de l'utilisateur (au milieu) -->
+      <img id="photoPreview" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Photo">
+
+      <!-- Couche 3 : Cadre + Écrits (PNG transparent par-dessus) -->
+      <img src="cadre.png" id="overlay" alt="Cadre et écrits">
     </div>
 
-    <!-- Les boutons d'action -->
     <div class="controls">
       <input type="file" id="photo" accept="image/*">
       <br><br>
@@ -28,7 +29,6 @@
     </div>
   </div>
 
-  <!-- Lien vers le fichier JavaScript -->
   <script src="script.js"></script>
 </body>
 </html>
