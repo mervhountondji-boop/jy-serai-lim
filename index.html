@@ -9,23 +9,24 @@
 <body>
 
   <div class="container">
-    <h2>Créer mon visuel</h2>
+    <h2>Générateur de visuel</h2>
 
     <div class="canvas-box">
-      <!-- Couche 1 : Fond bleu -->
+      <!-- 1. Fond bleu -->
       <img src="fond.png" id="bg" alt="Fond">
       
-      <!-- Couche 2 : Photo de l'utilisateur (au milieu) -->
-      <img id="photoPreview" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Photo">
+      <!-- 2. Photo de l'utilisateur -->
+      <img id="photoPreview" alt="Aperçu photo">
 
-      <!-- Couche 3 : Cadre + Écrits (PNG transparent par-dessus) -->
-      <img src="cadre.png" id="overlay" alt="Cadre et écrits">
+      <!-- 3. Cadre et textes transparents -->
+      <img src="cadre.png" id="overlay" alt="Cadre">
     </div>
 
+    <!-- Zone des boutons (bien séparée pour recevoir les clics) -->
     <div class="controls">
       <input type="file" id="photo" accept="image/*">
       <br><br>
-      <button id="downloadBtn">Télécharger mon visuel</button>
+      <button type="button" id="downloadBtn">Télécharger mon visuel</button>
     </div>
   </div>
 
