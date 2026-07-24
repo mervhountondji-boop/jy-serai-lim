@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
       ctx.drawImage(userImg, photoX, photoY, photoSize, photoSize);
       ctx.restore();
 
-      // Étape C : Dessiner le cadre par-dessus
+      // Étape C : Dessiner le cadre par-dessus (cadre2.png)
       const frameImg = new Image();
       frameImg.onload = function () {
         ctx.drawImage(frameImg, 0, 0, realWidth, realHeight);
