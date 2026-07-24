@@ -1,22 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-<title>J'y serai LIM</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>J'y serai LIM</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <div class="container">
 
-<div class="canvas">
-<img src="flyer.png" id="template">
-<img id="photoPreview">
-</div>
+    <div class="canvas">
+        <!-- 1. La photo est D'ABORD placée en dessous -->
+        <img id="photoPreview">
+        
+        <!-- 2. Le template (avec le trou transparent) est placé PAR-DESSUS -->
+        <img src="flyer.png" id="template">
+    </div>
 
-<input type="file" id="photo" accept="image/*">
+    <input type="file" id="photo" accept="image/*">
 
-<button onclick="download()">Télécharger mon visuel</button>
+    <button onclick="download()">Télécharger mon visuel</button>
+
+    <!-- Canvas masqué pour générer l'image fusionnée au téléchargement -->
+    <canvas id="exportCanvas" style="display:none;"></canvas>
 
 </div>
 
