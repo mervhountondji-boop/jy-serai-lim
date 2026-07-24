@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const template = document.getElementById("template");
   const downloadBtn = document.getElementById("downloadBtn");
 
-  // 1. CHARGEMENT ET AFFICHAGE DE LA PHOTO
+  // A. Quand l'utilisateur choisit sa photo
   input.addEventListener("change", function (e) {
     const file = e.target.files[0];
 
@@ -12,17 +12,15 @@ document.addEventListener("DOMContentLoaded", function () {
       const reader = new FileReader();
 
       reader.onload = function (event) {
-        // Applique l'image lue
         preview.src = event.target.result;
-        // FORCE l'affichage de la balise <img>
-        preview.style.display = "block";
+        preview.style.display = "block"; // Affiche l'image dans le cercle
       };
 
       reader.readAsDataURL(file);
     }
   });
 
-  // 2. GÉNÉRATION DU TÉLÉCHARGEMENT
+  // B. Quand l'utilisateur clique sur Télécharger
   downloadBtn.addEventListener("click", function () {
     if (!preview.src || preview.style.display === "none") {
       alert("Veuillez d'abord sélectionner une photo !");
@@ -32,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
 
-    // Taille réelle HD du flyer
+    // Dimensions réelles HD du flyer
     const realWidth = template.naturalWidth || 1000;
     const realHeight = template.naturalHeight || 1250;
 
@@ -41,14 +39,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const scale = realWidth / 400;
 
+    // Coordonnées ajustées selon la taille réelle de l'image HD
     const photoX = 102 * scale;
-    const photoY = 184 * scale;
+    const photoY = 212 * scale; // Alignement à 212px
     const photoSize = 196 * scale;
 
-    // A. Dessiner le flyer en fond
+    // 1. Dessiner le flyer au fond
     ctx.drawImage(template, 0, 0, realWidth, realHeight);
 
-    // B. Dessiner la photo chargée par-dessus dans le cercle
+    // 2. Dessiner la photo découpée en cercle par-dessus
     const userImg = new Image();
     userImg.onload = function () {
       ctx.save();
@@ -66,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
       ctx.drawImage(userImg, photoX, photoY, photoSize, photoSize);
       ctx.restore();
 
-      // C. Télécharger
+      // 3. Lancer le téléchargement
       const link = document.createElement("a");
       link.download = "visuel_jy_serai.png";
       link.href = canvas.toDataURL("image/png");
