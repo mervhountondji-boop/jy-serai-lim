@@ -43,7 +43,7 @@ body {
   position: absolute;
   width: 196px;        
   height: 196px;       
-  top: 212px;          /* ⬅️ AUGMENTEZ cette valeur pour descendre la photo */
+  top: 210px;          /* ⬅️ AUGMENTEZ cette valeur pour descendre la photo */
   left: 102px;         
   border-radius: 50px;  
   object-fit: cover;   
