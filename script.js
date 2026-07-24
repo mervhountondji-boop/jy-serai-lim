@@ -1,59 +1,57 @@
-let input = document.getElementById("photo");
-let preview = document.getElementById("photoPreview");
-let template = document.getElementById("template");
+document.addEventListener("DOMContentLoaded", function () {
+  const input = document.getElementById("photo");
+  const preview = document.getElementById("photoPreview");
+  const template = document.getElementById("template");
+  const downloadBtn = document.getElementById("downloadBtn");
 
-// 1. Afficher l'aperçu dès que la photo est choisie
-input.onchange = function () {
-  let file = this.files[0];
-  if (file) {
-    let reader = new FileReader();
-    reader.onload = function (e) {
-      preview.src = e.target.result;
-      preview.style.display = "block";
-    };
-    reader.readAsDataURL(file);
-  }
-};
+  // 1. CHARGEMENT ET AFFICHAGE DE LA PHOTO
+  input.addEventListener("change", function (e) {
+    const file = e.target.files[0];
 
-// 2. Générer et télécharger le visuel fusionné
-function download() {
-  if (!preview.src || preview.style.display === "none") {
-    alert("Veuillez d'abord choisir une photo !");
-    return;
-  }
+    if (file) {
+      const reader = new FileReader();
 
-  let canvas = document.createElement("canvas");
-  let ctx = canvas.getContext("2d");
+      reader.onload = function (event) {
+        // Applique l'image lue
+        preview.src = event.target.result;
+        // FORCE l'affichage de la balise <img>
+        preview.style.display = "block";
+      };
 
-  // Taille réelle du fichier flyer.png pour garder une haute qualité
-  let realWidth = template.naturalWidth || 1000;
-  let realHeight = template.naturalHeight || 1250;
+      reader.readAsDataURL(file);
+    }
+  });
 
-  canvas.width = realWidth;
-  canvas.height = realHeight;
+  // 2. GÉNÉRATION DU TÉLÉCHARGEMENT
+  downloadBtn.addEventListener("click", function () {
+    if (!preview.src || preview.style.display === "none") {
+      alert("Veuillez d'abord sélectionner une photo !");
+      return;
+    }
 
-  // Calcul du ratio d'échelle
-  let scale = realWidth / 400;
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
 
-  // Position et dimensions adaptées à la vraie taille de l'image
-  let photoX = 102 * scale;
-  let photoY = 184 * scale;
-  let photoSize = 196 * scale;
+    // Taille réelle HD du flyer
+    const realWidth = template.naturalWidth || 1000;
+    const realHeight = template.naturalHeight || 1250;
 
-  let flyerImg = new Image();
-  flyerImg.crossOrigin = "anonymous";
-  
-  // ÉTAPE A : Dessiner le flyer au fond
-  flyerImg.onload = function () {
-    ctx.drawImage(flyerImg, 0, 0, realWidth, realHeight);
+    canvas.width = realWidth;
+    canvas.height = realHeight;
 
-    let userImg = new Image();
-    userImg.crossOrigin = "anonymous";
-    
-    // ÉTAPE B : Dessiner la photo en cercle PAR-DESSUS
+    const scale = realWidth / 400;
+
+    const photoX = 102 * scale;
+    const photoY = 184 * scale;
+    const photoSize = 196 * scale;
+
+    // A. Dessiner le flyer en fond
+    ctx.drawImage(template, 0, 0, realWidth, realHeight);
+
+    // B. Dessiner la photo chargée par-dessus dans le cercle
+    const userImg = new Image();
     userImg.onload = function () {
       ctx.save();
-      
       ctx.beginPath();
       ctx.arc(
         photoX + photoSize / 2,
@@ -68,15 +66,13 @@ function download() {
       ctx.drawImage(userImg, photoX, photoY, photoSize, photoSize);
       ctx.restore();
 
-      // ÉTAPE C : Télécharger l'image finale
-      let link = document.createElement("a");
+      // C. Télécharger
+      const link = document.createElement("a");
       link.download = "visuel_jy_serai.png";
       link.href = canvas.toDataURL("image/png");
       link.click();
     };
-    
+
     userImg.src = preview.src;
-  };
-  
-  flyerImg.src = template.src;
-}
+  });
+});
