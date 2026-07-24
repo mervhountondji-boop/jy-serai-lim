@@ -2,68 +2,78 @@ let input = document.getElementById("photo");
 let preview = document.getElementById("photoPreview");
 let template = document.getElementById("template");
 
-// Chargement de la photo choisie par l'utilisateur
-input.onchange = function() {
-    let file = this.files[0];
-    if (!file) return;
-
+// Quand l'utilisateur choisit une photo
+input.onchange = function () {
+  let file = this.files[0];
+  if (file) {
     let reader = new FileReader();
-    reader.onload = function() {
-        preview.src = reader.result;
-        preview.style.display = "block"; // Affiche l'image
+    reader.onload = function (e) {
+      preview.src = e.target.result;
+      preview.style.display = "block"; // Rend la photo visible
     };
     reader.readAsDataURL(file);
+  }
 };
 
-// Fonction pour fusionner la photo et le cadre, puis télécharger l'image
+// Quand l'utilisateur clique sur "Télécharger mon visuel"
 function download() {
-    if (!preview.src || preview.style.display === "none") {
-        alert("Veuillez sélectionner une photo d'abord !");
-        return;
-    }
+  if (!preview.src || preview.style.display === "none") {
+    alert("Veuillez d'abord choisir une photo !");
+    return;
+  }
 
-    let canvas = document.getElementById("exportCanvas");
-    let ctx = canvas.getContext("2d");
+  // Création du canvas invisible pour fusionner les images
+  let canvas = document.createElement("canvas");
+  let ctx = canvas.getContext("2d");
 
-    // On utilise les dimensions originales du template pour une bonne qualité
-    let originalWidth = template.naturalWidth || 1080;
-    let originalHeight = template.naturalHeight || 1080;
+  // On utilise la taille réelle du fichier flyer (haute résolution)
+  let realWidth = template.naturalWidth || 1000;
+  let realHeight = template.naturalHeight || 1250;
 
-    canvas.width = originalWidth;
-    canvas.height = originalHeight;
+  canvas.width = realWidth;
+  canvas.height = realHeight;
 
-    // Calcul du ratio d'échelle entre la taille d'affichage CSS (400px) et la taille réelle
-    let scale = originalWidth / 400;
+  // Calcul du ratio par rapport aux 400px du CSS
+  let scale = realWidth / 400;
 
-    // Dimensions et positions à l'échelle réelle
-    let photoX = 105 * scale;
-    let photoY = 205 * scale;
-    let photoSize = 190 * scale;
-    let radius = photoSize / 2;
-    let centerX = photoX + radius;
-    let centerY = photoY + radius;
+  // Position et taille adaptées à la vraie résolution
+  let photoX = 102 * scale;
+  let photoY = 185 * scale;
+  let photoSize = 195 * scale;
 
-    // 1. Dessiner la photo dans un masque circulaire
+  let userImg = new Image();
+  userImg.crossOrigin = "anonymous";
+  userImg.onload = function () {
+    // 1. Découper un cercle pour la photo
     ctx.save();
     ctx.beginPath();
-    ctx.arc(centerX, centerY, radius, 0, Math.PI * 2, true);
+    ctx.arc(
+      photoX + photoSize / 2,
+      photoY + photoSize / 2,
+      photoSize / 2,
+      0,
+      Math.PI * 2
+    );
     ctx.closePath();
-    ctx.clip(); // Découpe en cercle
+    ctx.clip();
 
-    // Dessin de l'image utilisateur
-    let img = new Image();
-    img.src = preview.src;
-    img.onload = function() {
-        ctx.drawImage(img, photoX, photoY, photoSize, photoSize);
-        ctx.restore(); // Retire le masque circulaire
+    // 2. Dessiner la photo au fond
+    ctx.drawImage(userImg, photoX, photoY, photoSize, photoSize);
+    ctx.restore();
 
-        // 2. Dessiner le template par-dessus
-        ctx.drawImage(template, 0, 0, originalWidth, originalHeight);
+    // 3. Dessiner le flyer transparent PAR-DESSUS
+    let flyerImg = new Image();
+    flyerImg.crossOrigin = "anonymous";
+    flyerImg.onload = function () {
+      ctx.drawImage(flyerImg, 0, 0, realWidth, realHeight);
 
-        // 3. Déclencher le téléchargement du résultat
-        let link = document.createElement("a");
-        link.download = "visuel-jy-serai.png";
-        link.href = canvas.toDataURL("image/png");
-        link.click();
+      // 4. Déclencher le téléchargement
+      let link = document.createElement("a");
+      link.download = "visuel_jy_serai.png";
+      link.href = canvas.toDataURL("image/png");
+      link.click();
     };
+    flyerImg.src = template.src;
+  };
+  userImg.src = preview.src;
 }
