@@ -52,7 +52,7 @@ body {
   display: none;
 }
 
-/* Couche 3 : Cadre transparent + écrits */
+/* Couche 3 : Cadre par-dessus */
 #overlay {
   position: absolute;
   top: 0;
