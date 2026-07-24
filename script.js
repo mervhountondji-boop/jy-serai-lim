@@ -1,61 +1,64 @@
-let photo = document.getElementById("photo");
-let template = document.getElementById("template");
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
 
-let canvas = document.createElement("canvas");
-let ctx = canvas.getContext("2d");
+const template = new Image();
+template.src = "flyer.png";
+
+let userPhoto = null;
 
 
-photo.onchange = function(){
+// Charger le template
+template.onload = function(){
+    ctx.drawImage(template,0,0,1080,1350);
+}
 
-let fichier = photo.files[0];
 
-let reader = new FileReader();
+// Charger la photo
+document.getElementById("photo").onchange = function(e){
 
-reader.onload = function(e){
+const file = e.target.files[0];
 
-let img = new Image();
+const img = new Image();
 
 img.onload=function(){
 
-canvas.width = template.width;
-canvas.height = template.height;
+    // remettre le flyer
+    ctx.drawImage(template,0,0,1080,1350);
 
 
-// mettre le flyer
-ctx.drawImage(template,0,0);
+    // cercle photo
+    ctx.save();
+
+    ctx.beginPath();
+    ctx.arc(540,850,220,0,Math.PI*2);
+    ctx.closePath();
+    ctx.clip();
 
 
-// mettre la photo dans le cercle
-ctx.save();
-
-ctx.beginPath();
-ctx.arc(540,700,150,0,Math.PI*2);
-ctx.clip();
+    // placer photo dans cercle
+    ctx.drawImage(img,320,630,440,440);
 
 
-ctx.drawImage(img,390,550,300,300);
+    ctx.restore();
 
-ctx.restore();
 
 }
 
-img.src=e.target.result;
-
-}
-
-reader.readAsDataURL(fichier);
+img.src=URL.createObjectURL(file);
 
 }
 
 
+
+// téléchargement
 
 function download(){
 
 let lien=document.createElement("a");
 
-lien.download="Jy-serai-LIM.png";
+lien.download="jy-serai-lim.png";
 
-lien.href=canvas.toDataURL();
+lien.href=canvas.toDataURL("image/png");
 
 lien.click();
 
