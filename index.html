@@ -2,35 +2,110 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Générateur J'y serai</title>
-  <link rel="stylesheet" href="./style.css">
+  <style>
+    body { background: #1e1e2f; color: #fff; text-align: center; font-family: sans-serif; padding-top: 20px; }
+    #visual-container { position: relative; width: 400px; height: 500px; margin: 0 auto; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+    #fond, #photo, #cadre { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+    
+    /* Le fond est tout en bas (z-index 1) */
+    #fond { z-index: 1; }
+    
+    /* Ta photo est au milieu (z-index 2), parfaitement centrée dans le trou */
+    #photo { width: 196px; height: 196px; top: 212px; left: 102px; border-radius: 50%; z-index: 2; display: none; }
+    
+    /* Le cadre est tout en haut (z-index 3), et laisse passer les clics */
+    #cadre { z-index: 3; pointer-events: none; }
+
+    #controls { margin-top: 25px; }
+    input[type="file"] { background: #fff; color: #000; padding: 10px; border-radius: 4px; cursor: pointer; }
+    #downloadBtn { margin-top: 15px; padding: 12px 24px; background: #ffb703; border: none; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+    #downloadBtn:hover { background: #fb8500; }
+  </style>
 </head>
 <body>
 
-  <div class="container">
-    <h2>Créer mon visuel</h2>
+  <h2>Créer mon visuel</h2>
 
-    <!-- Zone de superposition du flyer -->
-    <div class="canvas-box">
-      <!-- Couche 1 : Fond bleu -->
-      <img src="./fond.png" id="bg" alt="Fond bleu">
-
-      <!-- Couche 2 : Photo de l'utilisateur -->
-      <img id="photoPreview" alt="Aperçu photo">
-
-      <!-- Couche 3 : Cadre transparent + textes -->
-      <img src="./cadre1.png" id="overlay" alt="Cadre et textes">
-    </div>
-
-    <!-- Zone des boutons d'action -->
-    <div class="controls">
-      <input type="file" id="photo" accept="image/*">
-      <br><br>
-      <button type="button" id="downloadBtn">Télécharger mon visuel</button>
-    </div>
+  <div id="visual-container">
+    <img src="fond.png" id="fond" alt="Fond">
+    <img src="" id="photo" alt="Photo">
+    <img src="cadre1.png" id="cadre" alt="Cadre">
   </div>
 
-  <script src="./script.js"></script>
+  <div id="controls">
+    <input type="file" id="imageInput" accept="image/*"><br>
+    <button id="downloadBtn">Télécharger mon visuel</button>
+  </div>
+
+  <script>
+    const input = document.getElementById('imageInput');
+    const photoImg = document.getElementById('photo');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    // 1. Gérer l'importation de l'image
+    input.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          photoImg.src = ev.target.result;
+          photoImg.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // 2. Gérer la fusion et le téléchargement (Canvas)
+    downloadBtn.addEventListener('click', () => {
+      if (!photoImg.src) return alert("S'il vous plaît, sélectionnez une photo d'abord !");
+
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const fondImg = document.getElementById('fond');
+      const cadreImg = document.getElementById('cadre');
+
+      // Récupérer la taille réelle de l'image de fond (HD)
+      const w = fondImg.naturalWidth;
+      const h = fondImg.naturalHeight;
+      canvas.width = w;
+      canvas.height = h;
+
+      // Calculer le ratio pour la photo (400px est la largeur affichée)
+      const ratio = w / 400;
+      const photoSize = 196 * ratio;
+      const photoX = 102 * ratio;
+      const photoY = 212 * ratio;
+
+      // Dessiner le fond (Layer 1)
+      ctx.drawImage(fondImg, 0, 0, w, h);
+
+      // Dessiner la photo découpée en cercle (Layer 2)
+      const userImage = new Image();
+      userImage.onload = () => {
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(photoX + photoSize/2, photoY + photoSize/2, photoSize/2, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.clip();
+        ctx.drawImage(userImage, photoX, photoY, photoSize, photoSize);
+        ctx.restore();
+
+        // Dessiner le cadre par-dessus (Layer 3)
+        const frameImage = new Image();
+        frameImage.onload = () => {
+          ctx.drawImage(frameImage, 0, 0, w, h);
+
+          // Créer le lien de téléchargement
+          const link = document.createElement('a');
+          link.download = 'mon_visuel_LIM.png';
+          link.href = canvas.toDataURL('image/png');
+          link.click();
+        };
+        frameImage.src = cadreImg.src;
+      };
+      userImage.src = photoImg.src;
+    });
+  </script>
 </body>
 </html>
