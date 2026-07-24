@@ -2,12 +2,16 @@ body{
 display:flex;
 justify-content:center;
 align-items:center;
-min-height:100vh;
+height:100vh;
 background:#eee;
 font-family:Arial;
 }
 
 .container{
+text-align:center;
+}
+
+.canvas{
 position:relative;
 width:400px;
 }
@@ -17,21 +21,18 @@ width:400px;
 display:block;
 }
 
-
-/* cercle photo */
 #photoPreview{
 position:absolute;
 width:190px;
 height:190px;
 border-radius:50%;
 object-fit:cover;
-object-position:center;
-top:170px;
+top:205px;
 left:105px;
-z-index:2;
+display:none;
 }
-
 
 input,button{
 margin-top:20px;
+padding:10px;
 }
