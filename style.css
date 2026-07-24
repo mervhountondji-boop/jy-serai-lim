@@ -1,44 +1,15 @@
-* {
-  box-sizing: border-box;
-}
-
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  margin: 0;
-  background-color: #1e1e2f;
-  color: #fff;
-  font-family: Arial, sans-serif;
-}
-
-.container {
-  text-align: center;
-  padding: 20px;
-}
-
-.canvas-box {
-  position: relative;
-  width: 400px;
-  height: 500px;
-  margin: 0 auto;
-  border-radius: 8px;
-  overflow: hidden;
-  background: #000;
-}
-
-/* 1. Fond bleu (tout au fond) */
+/* 1. Fond bleu (forcé à s'afficher en entier) */
 #bg {
   position: absolute;
   top: 0;
   left: 0;
-  width: 400px;
-  height: 500px;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* ⬅️ Forcer l'image complète à rentrer sans zoomer */
   z-index: 1;
 }
 
-/* 2. Photo de l'utilisateur (au milieu) */
+/* 2. Photo utilisateur au milieu */
 #photoPreview {
   position: absolute;
   width: 196px;
@@ -47,45 +18,18 @@ body {
   left: 102px;
   border-radius: 50%;
   object-fit: cover;
-  z-index: 2; /* Entre le fond et le cadre */
+  z-index: 2;
   display: none;
 }
 
-/* 3. Cadre et textes (tout devant) */
+/* 3. Cadre et textes (forcé à s'afficher en entier par-dessus) */
 #overlay {
   position: absolute;
   top: 0;
   left: 0;
-  width: 400px;
-  height: 500px;
-  z-index: 3; /* Par-dessus la photo */
-  pointer-events: none; /* Permet de cliquer à travers si besoin */
-}
-
-.controls {
-  margin-top: 20px;
-}
-
-input[type="file"] {
-  background: #fff;
-  color: #000;
-  padding: 8px;
-  border-radius: 4px;
-}
-
-button {
-  background-color: #ffb703;
-  color: #000;
-  border: none;
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-button:hover {
-  background-color: #fb8500;
-  color: #fff;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* ⬅️ Forcer l'image complète à rentrer sans zoomer */
+  z-index: 3;
+  pointer-events: none;
 }
