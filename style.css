@@ -16,11 +16,9 @@ body {
 .container {
   text-align: center;
   padding: 20px;
-  position: relative;
-  z-index: 10;
 }
 
-/* Boîte du flyer */
+/* Conteneur principal du flyer */
 .canvas-box {
   position: relative;
   width: 400px;
@@ -31,7 +29,7 @@ body {
   background: #000;
 }
 
-/* 1. Fond bleu */
+/* Couche 1 : Fond bleu */
 #bg {
   position: absolute;
   top: 0;
@@ -42,7 +40,7 @@ body {
   z-index: 1;
 }
 
-/* 2. Photo utilisateur au niveau du cercle */
+/* Couche 2 : Photo de l'utilisateur (se place dans le cercle) */
 #photoPreview {
   position: absolute;
   width: 196px;
@@ -52,10 +50,10 @@ body {
   border-radius: 50%;
   object-fit: cover;
   z-index: 2;
-  display: none; /* Caché au départ */
+  display: none; /* Caché tant qu'aucune photo n'est choisie */
 }
 
-/* 3. Cadre et textes (on désactive la capture de clics dessus) */
+/* Couche 3 : Cadre et textes par-dessus */
 #overlay {
   position: absolute;
   top: 0;
@@ -64,18 +62,17 @@ body {
   height: 100%;
   object-fit: cover;
   z-index: 3;
-  pointer-events: none; /* IMPORTANT : laisse passer les clics au travers */
+  pointer-events: none; /* Laisse passer les clics pour ne pas bloquer */
 }
 
+/* Zone des commandes sous le visuel */
 .controls {
   margin-top: 25px;
-  position: relative;
-  z-index: 20; /* Force les boutons à être au premier plan */
 }
 
 input[type="file"] {
-  background: #fff;
-  color: #000;
+  background: #ffffff;
+  color: #000000;
   padding: 10px;
   border-radius: 4px;
   cursor: pointer;
@@ -83,7 +80,7 @@ input[type="file"] {
 
 button {
   background-color: #ffb703;
-  color: #000;
+  color: #000000;
   border: none;
   padding: 14px 28px;
   font-size: 16px;
@@ -95,5 +92,5 @@ button {
 
 button:hover {
   background-color: #fb8500;
-  color: #fff;
+  color: #ffffff;
 }
