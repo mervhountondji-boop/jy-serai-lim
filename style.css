@@ -18,18 +18,18 @@ body {
   padding: 20px;
 }
 
-/* Conteneur principal fixé à 400px */
+/* Zone du flyer (fixée à 400px de large) */
 .canvas-box {
   position: relative;
   width: 400px;
-  height: 500px; /* Force la hauteur */
+  height: 500px;
   margin: 0 auto;
   border-radius: 8px;
   overflow: hidden;
   background: #000;
 }
 
-/* 1. Flyer en fond */
+/* 1. Le flyer complet au fond */
 #template {
   width: 400px;
   height: 500px;
@@ -38,17 +38,17 @@ body {
   z-index: 1;
 }
 
-/* 2. Photo utilisateur au-dessus du cercle */
+/* 2. La photo importée (ajustée à 212px pour être au centre du cercle) */
 #photoPreview {
   position: absolute;
-  width: 194px;        
-  height: 194px;       
-  top: 208px;          /* ⬅️ AUGMENTEZ cette valeur pour descendre la photo */
-  left: 102px;         
-  border-radius: 50px;  
-  object-fit: cover;   
-  z-index: 2;          
-  display: none;       
+  width: 196px;        /* Largeur de la photo */
+  height: 196px;       /* Hauteur de la photo */
+  top: 212px;          /* Ajusté pour descendre exactement dans le cercle */
+  left: 102px;         /* Position horizontale centré */
+  border-radius: 50%;  /* Découpe ronde */
+  object-fit: cover;   /* Ne déforme pas le visage */
+  z-index: 2;          /* S'affiche PAR-DESSUS le flyer */
+  display: none;       /* Masqué tant qu'aucune photo n'est choisie */
 }
 
 .controls {
@@ -72,4 +72,9 @@ button {
   border-radius: 5px;
   cursor: pointer;
   margin-top: 10px;
+}
+
+button:hover {
+  background-color: #fb8500;
+  color: #fff;
 }
