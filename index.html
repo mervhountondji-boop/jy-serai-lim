@@ -8,17 +8,18 @@
 <body>
 
   <div class="container">
-    <div class="canvas">
-      <!-- 1. La photo de l'utilisateur (se place DERRIÈRE) -->
-      <img id="photoPreview" alt="Aperçu photo">
-      
-      <!-- 2. Le flyer avec le trou transparent (se place DEVANT) -->
+    <div class="canvas-box">
+      <!-- Le flyer complet (fond) -->
       <img src="flyer.png" id="template" alt="Flyer LIM">
+      
+      <!-- La photo de l'utilisateur (qui vient par-dessus le rond blanc) -->
+      <img id="photoPreview" alt="Photo de l'intervenant">
     </div>
 
-    <input type="file" id="photo" accept="image/*">
-    <br>
-    <button onclick="download()">Télécharger mon visuel</button>
+    <div class="controls">
+      <input type="file" id="photo" accept="image/*">
+      <button onclick="download()">Télécharger mon visuel</button>
+    </div>
   </div>
 
   <script src="script.js"></script>
