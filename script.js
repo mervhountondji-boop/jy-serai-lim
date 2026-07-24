@@ -5,20 +5,20 @@ document.addEventListener("DOMContentLoaded", function () {
   const overlayImg = document.getElementById("overlay");
   const downloadBtn = document.getElementById("downloadBtn");
 
-  // 1. Charger et afficher la photo sélectionnée par l'utilisateur
+  // 1. Charger et afficher la photo sélectionnée
   input.addEventListener("change", function (e) {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = function (event) {
         preview.src = event.target.result;
-        preview.style.display = "block"; // Rend la photo visible
+        preview.style.display = "block";
       };
       reader.readAsDataURL(file);
     }
   });
 
-  // 2. Générer et télécharger le fichier HD final lors du clic
+  // 2. Fusionner et télécharger l'image HD
   downloadBtn.addEventListener("click", function () {
     if (!preview.src || preview.style.display === "none") {
       alert("Veuillez d'abord sélectionner une photo !");
@@ -28,24 +28,23 @@ document.addEventListener("DOMContentLoaded", function () {
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
 
-    // Récupérer la vraie dimension HD de l'image de fond
+    // Dimensions HD basées sur l'image de fond
     const realWidth = bgImg.naturalWidth || 1000;
     const realHeight = bgImg.naturalHeight || 1250;
 
     canvas.width = realWidth;
     canvas.height = realHeight;
 
-    // Calcul du ratio par rapport au conteneur de 400px
     const scale = realWidth / 400;
 
     const photoX = 102 * scale;
     const photoY = 212 * scale;
     const photoSize = 196 * scale;
 
-    // ÉTAPE A : Dessiner le fond bleu
+    // Étape A : Dessiner le fond
     ctx.drawImage(bgImg, 0, 0, realWidth, realHeight);
 
-    // ÉTAPE B : Dessiner la photo découpée en cercle
+    // Étape B : Dessiner la photo dans le cercle
     const userImg = new Image();
     userImg.onload = function () {
       ctx.save();
@@ -62,18 +61,18 @@ document.addEventListener("DOMContentLoaded", function () {
       ctx.drawImage(userImg, photoX, photoY, photoSize, photoSize);
       ctx.restore();
 
-      // ÉTAPE C : Superposer le cadre et les textes (cadre1.png)
+      // Étape C : Dessiner le cadre par-dessus
       const frameImg = new Image();
       frameImg.onload = function () {
         ctx.drawImage(frameImg, 0, 0, realWidth, realHeight);
 
-        // ÉTAPE D : Télécharger l'image fusionnée
+        // Étape D : Déclencher le téléchargement
         const link = document.createElement("a");
-        link.download = "visuel_jy_serai.png";
+        link.download = "visuel_LIM.png";
         link.href = canvas.toDataURL("image/png");
         link.click();
       };
-      frameImg.src = overlayImg.src; // Utilise cadre1.png
+      frameImg.src = overlayImg.src;
     };
     userImg.src = preview.src;
   });
