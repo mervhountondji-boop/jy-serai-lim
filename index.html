@@ -2,23 +2,28 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>J'y serai LIM</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <div class="container">
+    <h2>Générateur de visuel</h2>
+
     <div class="canvas-box">
-      <!-- Le flyer complet (fond) -->
-      <img src="flyer.png" id="template" alt="Flyer LIM">
+      <!-- Flyer en fond -->
+      <img src="flyer1.png" id="template" alt="Flyer LIM">
       
-      <!-- La photo de l'utilisateur (qui vient par-dessus le rond blanc) -->
-      <img id="photoPreview" alt="Photo de l'intervenant">
+      <!-- Photo utilisateur (avec une image vide par défaut pour éviter les bugs) -->
+      <img id="photoPreview" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Photo aperçu">
     </div>
 
     <div class="controls">
+      <!-- Input visible pour tester directement -->
       <input type="file" id="photo" accept="image/*">
-      <button onclick="download()">Télécharger mon visuel</button>
+      <br><br>
+      <button id="downloadBtn">Télécharger mon visuel</button>
     </div>
   </div>
 
