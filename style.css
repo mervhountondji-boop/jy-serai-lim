@@ -41,9 +41,9 @@ body {
 /* 2. Photo utilisateur au-dessus du cercle */
 #photoPreview {
   position: absolute;
-  width: 196px;        
-  height: 196px;       
-  top: 210px;          /* ⬅️ AUGMENTEZ cette valeur pour descendre la photo */
+  width: 194px;        
+  height: 194px;       
+  top: 208px;          /* ⬅️ AUGMENTEZ cette valeur pour descendre la photo */
   left: 102px;         
   border-radius: 50px;  
   object-fit: cover;   
