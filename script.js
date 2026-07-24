@@ -17,10 +17,3 @@ preview.src = reader.result;
 reader.readAsDataURL(file);
 
 }
-
-
-function download(){
-
-alert("Téléchargement activé après intégration finale du visuel");
-
-}
